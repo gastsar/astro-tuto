@@ -1,7 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import BlogPost from "../components/BlogPost.astro";
+import Layout from "../layouts/Layout.astro";
+const allPosts = Object.values(
+  import.meta.glob("./posts/*.md", { eager: true })
+);
+const pageTitle = "Mon blog d'apprentissage Astro";
 ---
 
-<Layout>
-  <h1>Blog</h1>
+<Layout pageTitle={pageTitle}>
+  <p>C'est ici que je vais publier sur mon voyage d'apprentissage d'Astro.</p>
+  <ul>
+    {
+      allPosts.map((post: any) => (
+        <BlogPost url={post.url} title={post.frontmatter.title} />
+      ))
+    }
+  </ul>
 </Layout>
